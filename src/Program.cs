@@ -4,21 +4,33 @@ namespace DBS
 {
     class Program
     {
-        public static void Main(String[] args){
-
+        public static bool find = false;
+        public static void Main(String[] args)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+    
             string mainDir = Directory.GetCurrentDirectory();
             string[] dirs = Directory.GetDirectories(mainDir);
             string[] files = Directory.GetFiles(mainDir);
             Program pr = new Program();
-    
+        
             for( int i = 0; i<files.Length; i++  )
             {
                 if( files[i] == mainDir+@"\dbsFile")
                 {
+                    find = true;
                     pr.Find(files[i]);
                     break;
                 }
             }
+
+            if(!find)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("File not a find(:<())");
+            }
+            Console.WriteLine("Work finish...");
+            Console.ResetColor();
         }
         void Cmd(string arg)
         {
@@ -39,43 +51,24 @@ namespace DBS
             string text = File.ReadAllText(pathToFile);
             string[] lines = text.Split("\n");
             for( int line = 0; line < lines.Length; line++ ){
-                if(lines[line] == "copy:")
+                string commands = lines[line].Split(" ")[0];
+                if(commands == "cmd:")
                 {
-                    string args = lines[line+1];
-                    string path = args.Split(" ")[0];
-                    string dir = args.Split(" ")[1];
-                    FileInfo fi = new FileInfo(path);
-                    if(fi.Exists)fi.CopyTo(dir, true);
-                    line++;
+                    string arg = lines[line].Split(" ")[1];
+                    Cmd(arg);
                     continue;
                 }
 
-                if(lines[line] == "move:")
+                if(commands == "del:")
                 {
-                    string args = lines[line+1];
-                    string path = args.Split(" ")[0];
-                    string dir = args.Split(" ")[1];
-                    FileInfo fi = new FileInfo(path);
-                    if(fi.Exists)fi.MoveTo(dir, true);
-                    line++;
-                    continue;
-                }
-
-                if(lines[line] == "cmd:")
-                {
-                    string args = lines[line+1];
-                    line++;
-                    continue;
-                }
-
-                if(lines[line] == "del:")
-                {
-                    string arg = lines[line+1];
+                    string arg = lines[line].Split(" ")[1];
                     FileInfo fi = new FileInfo(arg);
                     if(fi.Exists)fi.Delete();
                     line++;
                     continue;
                 }
+                Console.WriteLine(lines[0]);
+                Console.WriteLine(commands);
             }
         }
     }
