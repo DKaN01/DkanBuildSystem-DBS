@@ -1,0 +1,15 @@
+C:\Users\spamm\Desktop\dbs\bin\Debug\net6.0\dbs.exe
+C:\Users\spamm\Desktop\dbs\bin\Debug\net6.0\dbs.deps.json
+C:\Users\spamm\Desktop\dbs\bin\Debug\net6.0\dbs.runtimeconfig.json
+C:\Users\spamm\Desktop\dbs\bin\Debug\net6.0\dbs.dll
+C:\Users\spamm\Desktop\dbs\bin\Debug\net6.0\dbs.pdb
+C:\Users\spamm\Desktop\dbs\obj\Debug\net6.0\dbs.csproj.AssemblyReference.cache
+C:\Users\spamm\Desktop\dbs\obj\Debug\net6.0\dbs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\spamm\Desktop\dbs\obj\Debug\net6.0\dbs.AssemblyInfoInputs.cache
+C:\Users\spamm\Desktop\dbs\obj\Debug\net6.0\dbs.AssemblyInfo.cs
+C:\Users\spamm\Desktop\dbs\obj\Debug\net6.0\dbs.csproj.CoreCompileInputs.cache
+C:\Users\spamm\Desktop\dbs\obj\Debug\net6.0\dbs.dll
+C:\Users\spamm\Desktop\dbs\obj\Debug\net6.0\refint\dbs.dll
+C:\Users\spamm\Desktop\dbs\obj\Debug\net6.0\dbs.pdb
+C:\Users\spamm\Desktop\dbs\obj\Debug\net6.0\dbs.genruntimeconfig.cache
+C:\Users\spamm\Desktop\dbs\obj\Debug\net6.0\ref\dbs.dll
