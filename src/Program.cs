@@ -12,6 +12,7 @@ namespace DBS
             string mainDir = Directory.GetCurrentDirectory();
             string[] dirs = Directory.GetDirectories(mainDir);
             string[] files = Directory.GetFiles(mainDir);
+
             Program pr = new Program();
         
             for( int i = 0; i<files.Length; i++  )
@@ -29,9 +30,12 @@ namespace DBS
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("File not a find(:<())");
             }
+             
             Console.WriteLine("Work finish...");
             Console.ResetColor();
         }
+
+
         void Cmd(string arg)
         {
 
@@ -46,30 +50,73 @@ namespace DBS
 
             Process.Start(proc);
         }
+
+
         public void Find(string pathToFile)
         {
-            string text = File.ReadAllText(pathToFile);
-            string[] lines = text.Split("\n");
-            for( int line = 0; line < lines.Length; line++ ){
-                string commands = lines[line].Split(" ")[0];
-                if(commands == "cmd:")
+            // string text = File.ReadAllText(pathToFile);
+            IEnumerable<string> lines = File.ReadLines(pathToFile);
+            foreach(string line in lines){
+                string commands = line.Split(" ")[0];
+                switch(commands)
                 {
-                    string arg = lines[line].Split(" ")[1];
-                    Cmd(arg);
-                    continue;
+                    case "cmd:":
+                        cmd(line.Split(" ")[1]);
+                        break;
+                    case "del:":
+                        del(line.Split(" ")[1]);
+                        break;    
+                    case "move:":
+                        move(line.Split(" ")[1], line.Split(" ")[2]);
+                        break;
+                    case "copy:":
+                        copy(line.Split(" ")[1], line.Split(" ")[2]);
+                        break;
+                    default:
+                        continue; 
                 }
-
-                if(commands == "del:")
-                {
-                    string arg = lines[line].Split(" ")[1];
-                    FileInfo fi = new FileInfo(arg);
-                    if(fi.Exists)fi.Delete();
-                    line++;
-                    continue;
-                }
-                Console.WriteLine(lines[0]);
-                Console.WriteLine(commands);
             }
+        }
+
+        private void copy(string file, string dir)
+        {
+            string path = Path.Combine(dir,file);
+            try
+            {
+                File.Copy(file, path, true);
+            }
+            catch (System.Exception)
+            {
+                Console.ForegroundColor= ConsoleColor.Red;
+                Console.WriteLine("ERROR COPY:\n {0}\n{1}",file,path);
+                Console.ResetColor();
+            }
+        }
+        private void move(string file, string dir)
+        {
+            string path = Path.Combine(dir,file);
+            if(File.Exists(file) && !File.Exists(dir))
+            {
+                try
+                {
+                    File.Move(file, path);
+                }
+                catch (System.Exception)
+                {
+                    Console.ForegroundColor= ConsoleColor.Red;
+                    Console.WriteLine("ERROR MOVE:\n {0}\n{1}",file,path);
+                    Console.ResetColor();
+                }
+            }
+        }
+        private void cmd(string line)
+        {
+            Cmd(line);
+        }
+        private void del(string line)
+        {
+            FileInfo fi = new FileInfo(line);
+            if(fi.Exists)fi.Delete();
         }
     }
 }
