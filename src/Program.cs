@@ -54,7 +54,6 @@ namespace DBS
 
         public void Find(string pathToFile)
         {
-            // string text = File.ReadAllText(pathToFile);
             IEnumerable<string> lines = File.ReadLines(pathToFile);
             foreach(string line in lines){
                 string commands = line.Split(" ")[0];
